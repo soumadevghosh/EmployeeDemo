@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AgmMap, MouseEvent, MapsAPILoader } from '@agm/core';
 import { Employee } from '../employee-list/employee-list.component';
 import { EmployeeService } from '../employee.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee',
@@ -23,10 +23,12 @@ export class EmployeeComponent implements OnInit {
   zoom: number;
   latitude: any;
   longitude: any;
-  Employee: Employee
-  constructor(private apiloader: MapsAPILoader,private service:EmployeeService,private router:Router) { }
+  Employee: Employee;
+  id:number;
+  constructor(private apiloader: MapsAPILoader,private service:EmployeeService,private router:Router,private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.id =this.route.snapshot.params['id'];
     this.employeeForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -39,6 +41,19 @@ export class EmployeeComponent implements OnInit {
     this.get()
     this.agmMap.triggerResize(true);
     this.zoom = 16;
+
+    if(this.id!=-1){
+      this.service.getEmployee(this.id).subscribe(res=>{
+        this.Employee=res;
+      });
+      this.employeeForm.patchValue({
+        name: [this.Employee.name],
+        email: [this.Employee.email],
+        phone: [this.Employee.phone],
+        address: [this.Employee.address],
+        image: [this.Employee.image]
+      });
+    }
   }
   get() {
     if (navigator.geolocation) {
@@ -123,4 +138,5 @@ export class EmployeeComponent implements OnInit {
       this.router.navigate(['employee']);
     }); 
   }
+  
 }

@@ -25,7 +25,7 @@
 		<tbody>
 			<tr *ngFor="let emp of emp">
 				<th style="display:none;">{{emp.id}}</th>
-				<td>{{emp.name}}</td>
+				<td (click)="view(emp.id)">{{emp.name}}</td>
 				<td>{{emp.email}}</td>
 				<td>{{emp.phone}}</td>
 				<td>{{emp.location}}</td>

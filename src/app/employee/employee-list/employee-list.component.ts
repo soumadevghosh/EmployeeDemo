@@ -30,7 +30,9 @@ export class EmployeeListComponent implements OnInit {
     });
   }
   addEmployee() {
-    this.router.navigate(["employee/add"]);
+    this.router.navigate(["employee/add",-1]);
   }
-
+  view(id){
+    this.router.navigate(["employee/add",1]);
+  }
 }
