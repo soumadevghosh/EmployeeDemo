@@ -1,0 +1,39 @@
+
+<H1>Employess</H1>
+
+<!-- <div class="row text-center">
+	<div class="col-md-4 offset-sm-4">
+		<div class="alert alert-success" *ngIf="message">{{message}}</div>
+	</div>
+</div> -->
+
+<div class="container">
+	<div class="row">
+		<button class="btn btn-success" (click)="addEmployee()">Add New</button>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th style="display:none;">Id</th>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Phone</th>
+				<th>Location</th>
+				<th>Address</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let emp of emp">
+				<th style="display:none;">{{emp.id}}</th>
+				<td>{{emp.name}}</td>
+				<td>{{emp.email}}</td>
+				<td>{{emp.phone}}</td>
+				<td>{{emp.location}}</td>
+				<td>{{emp.address}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>
+<router-outlet></router-outlet>
+
