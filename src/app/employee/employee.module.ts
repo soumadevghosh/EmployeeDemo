@@ -5,6 +5,9 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeService } from './employee.service';
 import { EmployeeRoutingModule } from './employee-routing.module';
 import { AgmCoreModule } from '@agm/core';
+import { AngularMaterialModule } from '../app.angular.material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -15,6 +18,8 @@ import { AgmCoreModule } from '@agm/core';
     AgmCoreModule.forRoot({  
       apiKey: 'AIzaSyDWKCnWSFkct3D4e-DrzJqSD7Khnmf-0XM'  
     }),
+    AngularMaterialModule,
+    ReactiveFormsModule
   ],
   providers:[EmployeeService]
 })

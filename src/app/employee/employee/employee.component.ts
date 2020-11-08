@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AgmMap, MouseEvent, MapsAPILoader } from '@agm/core';
+import { Employee } from '../employee-list/employee-list.component';
+import { EmployeeService } from '../employee.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee',
@@ -10,6 +13,7 @@ import { AgmMap, MouseEvent, MapsAPILoader } from '@agm/core';
 
 
 export class EmployeeComponent implements OnInit {
+
   imageSrc: string;
   @ViewChild(AgmMap, { static: true }) public agmMap: AgmMap;
   employeeForm = new FormGroup({})
@@ -19,7 +23,8 @@ export class EmployeeComponent implements OnInit {
   zoom: number;
   latitude: any;
   longitude: any;
-  constructor(private apiloader: MapsAPILoader) { }
+  Employee: Employee
+  constructor(private apiloader: MapsAPILoader,private service:EmployeeService,private router:Router) { }
 
   ngOnInit(): void {
     this.employeeForm = new FormGroup({
@@ -103,5 +108,19 @@ export class EmployeeComponent implements OnInit {
       };
    
     }
+  }
+  onSubmit(){
+    this.Employee = new Employee(
+      null,
+      this.employeeForm.controls.name.value,
+      this.employeeForm.controls.email.value,
+      this.imageSrc,
+      this.employeeForm.controls.phone.value,
+      this.latitude+" "+this.longitude,
+      this.employeeForm.controls.address.value
+    )
+    this.service.addEmployee(this.Employee).subscribe(response=>{
+      this.router.navigate(['employee']);
+    }); 
   }
 }
